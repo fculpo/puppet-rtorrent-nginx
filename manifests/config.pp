@@ -15,7 +15,7 @@ class rtorrent::config {
     ensure  => present,
     owner   => 'rtorrent',
     group   => 'rtorrent',
-    mode    => 0555,
+    mode    => '0555',
     source  => 'puppet:///rtorrent/rtorrent',
     require => User['rtorrent']
   }
@@ -24,8 +24,8 @@ class rtorrent::config {
     ensure  => present,
     owner   => 'rtorrent',
     group   => 'rtorrent',
-    mode    => 0440,
-    content => template("rtorrent/rtorrent.rc"),
+    mode    => '0440',
+    content => template('rtorrent/rtorrent.rc'),
     require => User['rtorrent'],
     notify  => Class['rtorrent::service']
   }
