@@ -26,8 +26,3 @@ A puppet module to install libtorrent and rtorrent from source, with the xmlrpc-
       servername  <% fqdn %>
       serveralias <% hostname %>
 11. restart apache
-
-## to do
-1. Need to create an init script for rtorrent to start it as rtorrent it, stop it, check status, restart it.
-2. Need to create a .rtorrenttrc file
- * scgi_port = 127.0.0.1:5000
