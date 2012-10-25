@@ -9,7 +9,6 @@ case "$1" in
       --pidfile /var/run/rtorrent/rtorrent.pid --make-pidfile \
       --chuid rtorrent \
       --exec /usr/bin/screen -- -DmUS rtorrent /usr/local/bin/rtorrent
-#    start-stop-daemon --start --chuid rtorrent -m --pidfile /var/run/rtorrent.pid --background --startas "screen -d -m -S rtorrent rtorrent &> /dev/null"
     log_end_msg $?
     ;;
   stop)
@@ -28,4 +27,3 @@ case "$1" in
   *)
     echo "usage: $0 {start|stop|restart|status}"
 esac
-#exit 0
