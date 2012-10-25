@@ -1,0 +1,31 @@
+#!/bin/bash
+
+. /lib/lsb/init-functions
+
+case "$1" in
+  start)
+    log_daemon_msg "Starting rtorrent"
+    start-stop-daemon --start --background --oknodo \
+      --pidfile /var/run/rtorrent/rtorrent.pid --make-pidfile \
+      --chuid rtorrent \
+      --exec /usr/bin/screen -- -DmUS rtorrent /usr/local/bin/rtorrent
+#    start-stop-daemon --start --chuid rtorrent -m --pidfile /var/run/rtorrent.pid --background --startas "screen -d -m -S rtorrent rtorrent &> /dev/null"
+    log_end_msg $?
+    ;;
+  stop)
+    log_daemon_msg "Stopping rtorrent"
+    killall -w -s 2 /usr/bin/rtorrent &> /dev/null
+    log_end_msg $?
+    ;;
+  status)
+    status_of_proc rtorrent 'rtorrent'
+    ;;
+  restart)
+    $0 stop
+    sleep 1
+    $0 start
+    ;;
+  *)
+    echo "usage: $0 {start|stop|restart|status}"
+esac
+#exit 0
