@@ -13,8 +13,9 @@ case "$1" in
     ;;
   stop)
     log_daemon_msg "Stopping rtorrent"
-    killall -w -s 2 /usr/bin/rtorrent &> /dev/null
+    start-stop-daemon --stop --pidfile /var/run/rtorrent/rtorrent.pid
     log_end_msg $?
+    rm /var/run/rtorrent/rtorrent.pid
     ;;
   status)
     status_of_proc rtorrent 'rtorrent'
