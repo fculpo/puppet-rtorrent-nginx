@@ -20,13 +20,20 @@ class rtorrent::config {
     require => User['rtorrent']
   }
 
+  file { '/var/run/rtorrent':
+   ensure => directory,
+   owner => 'rtorrent',
+   group => 'rtorrent',
+   mode  => '0544'
+  }
+
   file { '/home/rtorrent/.rtorrent.rc':
     ensure  => present,
     owner   => 'rtorrent',
     group   => 'rtorrent',
     mode    => '0440',
     content => template('rtorrent/rtorrent.rc'),
-    require => User['rtorrent'],
+    require => [ User['rtorrent'], File['/var/run/rtorrent'] ],
     notify  => Class['rtorrent::service']
   }
 
