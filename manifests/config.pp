@@ -21,10 +21,10 @@ class rtorrent::config {
   }
 
   file { '/var/run/rtorrent':
-   ensure => directory,
-   owner => 'rtorrent',
-   group => 'rtorrent',
-   mode  => '0544'
+    ensure => directory,
+    owner  => 'rtorrent',
+    group  => 'rtorrent',
+    mode   => '0544'
   }
 
   file { '/home/rtorrent/.rtorrent.rc':
