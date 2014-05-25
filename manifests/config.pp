@@ -4,7 +4,7 @@
 # The rtorrent user password defaults to 'rtorrent'
 class rtorrent::config {
 
-  @user {'rtorrent':
+  user {'rtorrent':
     ensure     => present,
     comment    => 'rtorrent process user',
     managehome => true,
@@ -16,7 +16,7 @@ class rtorrent::config {
     owner   => 'rtorrent',
     group   => 'rtorrent',
     mode    => '0555',
-    source  => 'puppet:///rtorrent/rtorrent',
+    source  => 'puppet:///modules/rtorrent/rtorrent',
     require => User['rtorrent']
   }
 
