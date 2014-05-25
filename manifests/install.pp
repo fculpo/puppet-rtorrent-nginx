@@ -49,6 +49,9 @@ class rtorrent::install {
 		location_cfg_append   => undef,
 		index_files           => [ 'index.php', 'index.html' ],
 	}
+	file { "/etc/nginx/conf.d/default.conf":
+		ensure => purged
+	}
 
 	
 	# install php5
