@@ -13,7 +13,7 @@ class rtorrent::install {
 			'libcppunit-dev',
 			'zlib1g-dev',
 			'libssl-dev',
-			#'libsigc++-2.0-dev', (doesn't stop ./configure, guess it's nt needed?)
+			#'libsigc++-2.0-dev', #doesn't stop ./configure, guess it's nt needed?
 			# libraries for rtorrent
 			'libncurses5-dev',
 			'libcurl4-openssl-dev'

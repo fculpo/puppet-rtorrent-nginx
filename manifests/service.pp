@@ -10,5 +10,4 @@ class rtorrent::service {
     enable      => true,
     require     => [Class['rtorrent::install'], Class['rtorrent::config']]
   }
-
 }
