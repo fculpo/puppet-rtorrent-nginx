@@ -3,6 +3,7 @@
 # run
 # The rtorrent user password defaults to 'rtorrent'
 class rtorrent::config {
+	include rtorrent::params
   user {'rtorrent':
     ensure     => present,
     comment    => 'rtorrent process user',
@@ -20,6 +21,13 @@ class rtorrent::config {
   }
 
   file { '/var/run/rtorrent':
+    ensure => directory,
+    owner  => 'rtorrent',
+    group  => 'rtorrent',
+    mode   => '0544'
+  }
+  
+  file { '/var/log/rtorrent':
     ensure => directory,
     owner  => 'rtorrent',
     group  => 'rtorrent',
