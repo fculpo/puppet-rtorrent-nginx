@@ -3,7 +3,6 @@
 # run
 # The rtorrent user password defaults to 'rtorrent'
 class rtorrent::config {
-
   user {'rtorrent':
     ensure     => present,
     comment    => 'rtorrent process user',
