@@ -8,7 +8,7 @@ class rtorrent::service {
     hasstatus   => true,
     hasrestart  => true,
     enable      => true,
-    require     => Class['rtorrent::config']
+    require     => [Class['rtorrent::install'], Class['rtorrent::config']]
   }
 
 }
