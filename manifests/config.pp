@@ -31,7 +31,7 @@ class rtorrent::config {
     ensure => directory,
     owner  => 'rtorrent',
     group  => 'rtorrent',
-    mode   => '0544'
+    mode   => '0744'
   }
 
   file { '/home/rtorrent/.rtorrent.rc':
