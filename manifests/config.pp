@@ -8,7 +8,7 @@ class rtorrent::config {
     ensure     => present,
     comment    => 'rtorrent process user',
     managehome => true,
-    password   => '$6$4j7HN4x1$oa13Le9EZErSukSxqhIU1Pnu6fOI0k7FbjW0NaCvRnLU7H9K1RrkoNfcmwQtS973FSIrfLFIjMbpp7VvB00ux.'
+    password   => '$1$xyz$Tuseeau/G8mLG8Vnqm8Kb/'
   }
 
   file { '/etc/init.d/rtorrent':
