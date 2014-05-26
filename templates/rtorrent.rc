@@ -1,8 +1,6 @@
 encryption = allow_incoming,try_outgoing,enable_retry
-schedule = tied_directory,10,10,start_tied=
-schedule = untied_directory,10,10,close_untied=
 dht = disable
-peer_exchange = yes
+#peer_exchange = yes # Does not exist in latest rtorrent
 port_range = 49164-49264
 
 check_hash = yes
@@ -11,12 +9,13 @@ min_peers = 40
 max_peers = 52
 min_peers_seed = 10
 max_peers_seed = 52
-max_uploads = <% @rtorrent_max_uploads %>
-download_rate = <% @rtorrent_download_rate %>
-upload_rate = <% @rtorrent_upload_rate %>
+max_uploads = <%= scope['rtorrent::params::rtorrent_max_uploads'] %>
+download_rate = <%= scope['rtorrent::params::rtorrent_download_rate'] %>
+upload_rate = <%= scope['rtorrent::params::rtorrent_upload_rate'] %>
 
-scgi_port = 127.0.0.1:5000
+#scgi_port = 127.0.0.1:5000
 
-session = <% @rtorrent_session %>
-directory = <% @rtorrent_download %>
-schedule = watch_directory,10,10,load_start=/media/rtorrent/watch/*.torrent
+session = <%= scope['rtorrent::params::rtorrent_session'] %>
+directory = <%= scope['rtorrent::params::rtorrent_directory'] %>
+scgi_local = /home/rtorrent/.rtorrent.socket
+schedule = chmod,0,0,"execute=chmod,777,/home/rtorrent/.rtorrent.socket"
