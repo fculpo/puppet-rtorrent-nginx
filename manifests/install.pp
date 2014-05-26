@@ -32,6 +32,7 @@ class rtorrent::install {
 	exec { "build-rtorrent":
 		command => "/home/rtorrent/rtorrent-build.sh",
 		creates => "/usr/local/bin/rtorrent",
+		timeout => 0,
 		require => [File['/home/rtorrent/rtorrent-build.sh'], Package[$rtorrentpackages]]
 	} 
 	
