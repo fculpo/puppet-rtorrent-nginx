@@ -26,13 +26,6 @@ class rtorrent::config {
     group  => 'rtorrent',
     mode   => '0544'
   }
-  
-  file { '/var/log/rtorrent':
-    ensure => directory,
-    owner  => 'rtorrent',
-    group  => 'rtorrent',
-    mode   => '0744'
-  }
 
   file { '/home/rtorrent/.rtorrent.rc':
     ensure  => present,

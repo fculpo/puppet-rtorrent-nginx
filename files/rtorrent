@@ -8,7 +8,7 @@ case "$1" in
     start-stop-daemon --start --background --oknodo \
       --pidfile /var/run/rtorrent/rtorrent.pid --make-pidfile \
       --chuid rtorrent \
-	  --exec /usr/bin/screen -- -DmUS rtorrent /usr/local/bin/rtorrent -D
+	  --exec /usr/bin/screen -- -DmUS rtorrent bash -c "/usr/local/bin/rtorrent -D"
     log_end_msg $?
     ;;
   stop)
