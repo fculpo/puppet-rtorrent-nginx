@@ -1,7 +1,22 @@
-class rtorrent::rutorrent {
+#
+# ==== Class: rtorrent::rutorrent
+#
+# Downloads rtorrent 
+#
+# ==== Parameters:
+#
+# [*rutorrent_dir*]
+#    The directory that rutorrent will be installed, see init::rutorrent_dir
+#
+class rtorrent::rutorrent(
+	$rutorrent_dir
+) {
+	# rutorrent uses svn, make sure its installed
 	package { 'subversion':
 		ensure => installed
 	}
+	
+	# Execute rutorrent build
 	file { '/home/rtorrent/rutorrent-build.sh':
 		ensure  => present,
 		owner   => 'rtorrent',
@@ -11,9 +26,9 @@ class rtorrent::rutorrent {
 		require => User['rtorrent']
 	}
 	exec { "build-rutorrent":
-		command => "/home/rtorrent/rutorrent-build.sh",
-		creates => "/var/www/rutorrent/",
+		command => "/home/rtorrent/rutorrent-build.sh $rutorrent_dir",
+		creates => $rutorrent_dir,
 		timeout => 0,
-		require => [File['/home/rtorrent/rtorrent-build.sh'], Package[$rtorrentpackages]]
+		require => [File['/home/rtorrent/rtorrent-build.sh'], Package['subversion']]
 	} 
 }
