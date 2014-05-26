@@ -3,7 +3,6 @@ class rtorrent::rtorrent_build {
 	$rtorrentpackages = [
 			# Build deps
 			'git',
-			'subversion',
 			'g++',
 			'automake',
 			'make',
