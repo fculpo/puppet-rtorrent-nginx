@@ -40,7 +40,8 @@ class rtorrent::install {
 
 	# install and configure nginx with basic webserver
 	class { 'nginx': 
-		package_source => 'nginx'
+		package_source => 'nginx',
+		confd_purge => true
 	}
 	nginx::resource::vhost { "quacknas-remote":
 		ensure                => present,
@@ -52,10 +53,6 @@ class rtorrent::install {
 		index_files           => [ 'index.php', 'index.html' ],
 		use_default_location   => false
 	}
-	file { "/etc/nginx/conf.d/default.conf":
-		ensure => purged
-	}
-
 	
 	# install php5
 	include php
