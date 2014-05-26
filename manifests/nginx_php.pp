@@ -26,6 +26,11 @@ class rtorrent::nginx_php(
 		index_files           => ['index.php', 'index.html', 'index.htm'],
 		use_default_location   => false
 	}
+	file { "$www_dir":
+		ensure => directory,
+		owner   => 'www-data',
+		group   => 'www-data',
+	}
 	
 	# install php5-fpm and configure nginx to use it
 	include php
