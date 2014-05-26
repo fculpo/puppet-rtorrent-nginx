@@ -33,7 +33,7 @@ class rtorrent::rtorrent_config {
     mode    => '0440',
     content => template('rtorrent/rtorrent.rc'),
     require => [ User['rtorrent'], File['/var/run/rtorrent'] ],
-    notify  => Class['rtorrent::service']
+    notify  => Service['rtorrent']
   }
   
   # Configure and start rtorrent service
@@ -50,6 +50,6 @@ class rtorrent::rtorrent_config {
     hasstatus   => true,
     hasrestart  => true,
     enable      => true,
-    require     => [Class['rtorrent::install'], Class['rtorrent::config']]
+    require     => [Class['rtorrent::rtorrent_build']]
   }
 }
