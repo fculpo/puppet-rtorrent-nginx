@@ -30,5 +30,13 @@ class rtorrent::rutorrent(
 		creates => $rutorrent_fulldir,
 		timeout => 0,
 		require => [File['/home/rtorrent/rtorrent-build.sh'], Package['subversion']]
-	} 
+	}
+	file { "$rutorrent_fulldir":
+		ensure => directory,
+		recurse => true,
+		owner => "www-data",
+		group => "www-data",
+		mode => 0644,
+		require => Exec['build-rutorrent'],
+   	}
 }
