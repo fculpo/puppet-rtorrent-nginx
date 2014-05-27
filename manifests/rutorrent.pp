@@ -5,11 +5,12 @@
 #
 # ==== Parameters:
 #
-# [*rutorrent_fulldir*]
+# [*rutorrent_wwwdir*]
 #    The full directory path that rutorrent will be installed, see init::rutorrent_dir
 #
 class rtorrent::rutorrent(
-	$rutorrent_fulldir
+	$rutorrent_installdir,
+	$rutorrent_fullwwwdir,
 ) {
 	# rutorrent uses svn, make sure its installed
 	package { 'subversion':
@@ -26,17 +27,22 @@ class rtorrent::rutorrent(
 		require => User['rtorrent']
 	}
 	exec { "build-rutorrent":
-		command => "/home/rtorrent/rutorrent-build.sh $rutorrent_fulldir",
-		creates => $rutorrent_fulldir,
+		command => "/home/rtorrent/rutorrent-build.sh $rutorrent_installdir $rutorrent_fullwwwdir",
+		creates => $rutorrent_fullwwwdir,
 		timeout => 0,
 		require => [File['/home/rtorrent/rtorrent-build.sh'], Package['subversion']]
 	}
-	file { "$rutorrent_fulldir":
-		ensure => directory,
-		recurse => true,
+	file { "$rutorrent_fullwwwdir":
+		ensure => link,
+		target => "$rutorrent_installdir/rutorrent",
 		owner => "www-data",
 		group => "www-data",
 		mode => 0644,
 		require => Exec['build-rutorrent'],
+   	}
+	file { "$rutorrent_fullwwwdir/plugins/rpc":
+		ensure => link,
+		target => "$rutorrent_installdir/plugins/rpc",
+		require => File["$rutorrent_fullwwwdir"],
    	}
 }
