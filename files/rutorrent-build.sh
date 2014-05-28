@@ -34,7 +34,7 @@ mv $BUILD_FOLDER/* $INSTALL_FOLDER
 cd $INSTALL_FOLDER/rutorrent/conf
 cp config.php config.php.bak
 sed -i "s/^[[:space:]]*\$scgi_port \= .*/\$scgi_port \= 0;/i" config.php
-sed -i "s/^[[:space:]]*\$scgi_host \= .*/\$scgi_host \= 'unix\:\/\/\/home\/rutorrent\/\.rutorrent.socket\'\;/i" config.php
+sed -i "s/^[[:space:]]*\$scgi_host \= .*/\$scgi_host \= 'unix\:\/\/\/home\/rtorrent\/\.rtorrent.socket\'\;/i" config.php
 
 #Cleanup
 cd /
