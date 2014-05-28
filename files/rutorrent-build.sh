@@ -23,11 +23,6 @@ cd $BUILD_FOLDER
 
 #Download rutorrent
 svn co http://rutorrent.googlecode.com/svn/trunk/ .
-echo "Finished SVN"
-cd /
-echo "Now in:"
-pwd
-echo "Moving $BUILD_FOLDER to $INSTALL_FOLDER"
 mv $BUILD_FOLDER/* $INSTALL_FOLDER
 
 #Set the scgi params in rutorrent config to local socket
