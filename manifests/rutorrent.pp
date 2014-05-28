@@ -45,4 +45,12 @@ class rtorrent::rutorrent(
 		target => "$rutorrent_installdir/plugins/rpc",
 		require => File["$rutorrent_fullwwwdir"],
    	}
+	file { "$rutorrent_installdir":
+		ensure => directory,
+		recurse => true,
+		owner => "www-data",
+		group => "www-data",
+		mode => 0644,
+		require => Exec['build-rutorrent'],
+   	}
 }
