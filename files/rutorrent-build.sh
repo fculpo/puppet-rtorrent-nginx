@@ -31,6 +31,9 @@ cp config.php config.php.bak
 sed -i "s/^[[:space:]]*\$scgi_port \= .*/\$scgi_port \= 0;/i" config.php
 sed -i "s/^[[:space:]]*\$scgi_host \= .*/\$scgi_host \= 'unix\:\/\/\/home\/rtorrent\/\.rtorrent.socket\'\;/i" config.php
 
+#Move over rpc plugin
+mv $INSTALL_FOLDER/plugins/rpc $INSTALL_FOLDER/plugins/
+
 #Cleanup
 cd /
 rm -rf $BUILD_FOLDER

@@ -40,11 +40,6 @@ class rtorrent::rutorrent(
 		mode => 0644,
 		require => Exec['build-rutorrent'],
    	}
-	file { "$rutorrent_fullwwwdir/plugins/rpc":
-		ensure => link,
-		target => "$rutorrent_installdir/plugins/rpc",
-		require => File["$rutorrent_fullwwwdir"],
-   	}
 	file { "$rutorrent_installdir":
 		ensure => directory,
 		recurse => true,
