@@ -6,7 +6,7 @@ set -e
 #Allow glob to match dotfiles
 shopt -s dotglob
 
-BUILD_FOLDER="/tmp/rutorrent-build/"
+BUILD_FOLDER="/tmp/rutorrent-build"
 INSTALL_FOLDER=$1
 
 #Verify we have arguments
@@ -22,8 +22,10 @@ mkdir $BUILD_FOLDER
 cd $BUILD_FOLDER
 
 #Download rutorrent
+rm -rf $INSTALL_FOLDER
 svn co http://rutorrent.googlecode.com/svn/trunk/ .
-mv $BUILD_FOLDER/* $INSTALL_FOLDER
+mkdir $INSTALL_FOLDER
+mv $BUILD_FOLDER/* $INSTALL_FOLDER/
 
 #Set the scgi params in rutorrent config to local socket
 cd $INSTALL_FOLDER/rutorrent/conf
@@ -32,7 +34,7 @@ sed -i "s/^[[:space:]]*\$scgi_port \= .*/\$scgi_port \= 0;/i" config.php
 sed -i "s/^[[:space:]]*\$scgi_host \= .*/\$scgi_host \= 'unix\:\/\/\/home\/rtorrent\/\.rtorrent.socket\'\;/i" config.php
 
 #Move over rpc plugin
-mv $INSTALL_FOLDER/plugins/rpc $INSTALL_FOLDER/plugins/
+mv $INSTALL_FOLDER/plugins/rpc $INSTALL_FOLDER/rutorrent/plugins/
 
 #Cleanup
 cd /
