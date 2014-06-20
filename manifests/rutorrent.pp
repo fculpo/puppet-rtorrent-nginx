@@ -30,7 +30,7 @@ class rtorrent::rutorrent(
 		command => "/home/rtorrent/rutorrent-build.sh $rutorrent_installdir $rutorrent_fullwwwdir",
 		creates => $rutorrent_fullwwwdir,
 		timeout => 0,
-		require => [File['/home/rtorrent/rtorrent-build.sh'], Package['subversion']]
+		require => [File['/home/rtorrent/rutorrent-build.sh'], Package['subversion']]
 	}
 	file { "$rutorrent_fullwwwdir":
 		ensure => link,
