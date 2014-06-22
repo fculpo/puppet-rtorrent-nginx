@@ -8,4 +8,4 @@ description "Build rtorrent from source, download rutorrent from source, and ins
 project_page 'http://github.com/LordQuackstar/puppet-rtorrent-nginx
 
 dependency 'nodes/php'
-dependency 'jfryman/puppet-nginx'
+dependency 'jfryman/nginx'
