@@ -6,15 +6,17 @@ class rtorrent(
 	$rtorrent_directory = '/quackdrive/torrents',
 	$www_dir = '/var/www',
 	$rutorrent_wwwdir = 'rutorrent',
-	$rutorrent_installdir = '/opt/rutorrent'
+	$rutorrent_installdir = '/opt/rutorrent',
+	$vhost
 ) {
 	class { 'rtorrent::nginx_php': 
 		www_dir => $www_dir,
+		vhost => $vhost
 	}
 	class { 'rtorrent::rtorrent_build': }
 	class { 'rtorrent::rtorrent_config': }
 	class { 'rtorrent::rutorrent': 
 		rutorrent_installdir => "$rutorrent_installdir",
-		rutorrent_fullwwwdir => "$www_dir/$rutorrent_wwwdir"
+		rutorrent_fullwwwdir => "$www_dir/$rutorrent_wwwdir",
 	}
 }
