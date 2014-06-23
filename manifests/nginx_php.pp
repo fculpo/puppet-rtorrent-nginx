@@ -12,10 +12,25 @@ class rtorrent::nginx_php(
 	$www_dir,
 	$vhost
 ) {	
+	class { 'nginx': 
+		package_source => 'nginx',
+		confd_purge => true
+	}
+	nginx::resource::vhost { "puppet-rutorrent":
+		ensure                => present,
+		listen_port           => 80,
+		#www_root             => $www_dir, #broken, incorectly puts root in location /{} block
+		vhost_cfg_prepend	  => {root =>"/var/www"},
+		proxy                 => undef,
+		location_cfg_append   => undef,
+		index_files           => ['index.php', 'index.html', 'index.htm'],
+		use_default_location   => false
+	}
+
 	# install php5-fpm and configure nginx to use it
 	include php
 	class { ['php::fpm', 'php::cli']: }
-	nginx::resource::location { "quacknas-remote_php":
+	nginx::resource::location { "puppet-rutorrent-php":
 		ensure          => present,
 		vhost           => $vhost,
 		location        => '~ \.php$',

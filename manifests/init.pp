@@ -9,10 +9,6 @@ class rtorrent(
 	$rutorrent_installdir = '/opt/rutorrent',
 	$vhost
 ) {
-	class { 'rtorrent::nginx_php': 
-		www_dir => $www_dir,
-		vhost => $vhost
-	}
 	class { 'rtorrent::rtorrent_build': }
 	class { 'rtorrent::rtorrent_config': }
 	class { 'rtorrent::rutorrent': 
