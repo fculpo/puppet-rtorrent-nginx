@@ -1,7 +1,6 @@
 encryption = allow_incoming,try_outgoing,enable_retry
-dht = disable
+dht = enable
 #peer_exchange = yes # Does not exist in latest rtorrent
-port_range = 49164-49264
 
 check_hash = yes
 
