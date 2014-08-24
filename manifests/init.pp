@@ -7,10 +7,13 @@ class rtorrent(
 	$www_dir = '/var/www',
 	$rutorrent_wwwdir = 'rutorrent',
 	$rutorrent_installdir = '/opt/rutorrent',
+	$rtorrent_command = '/usr/local/bin/rtorrent -D',
 	$vhost
 ) {
 	class { 'rtorrent::rtorrent_build': }
-	class { 'rtorrent::rtorrent_config': }
+	class { 'rtorrent::rtorrent_config': 
+		rtorrent_command => $rtorrent_command,
+	}
 	class { 'rtorrent::rutorrent': 
 		rutorrent_installdir => "$rutorrent_installdir",
 		rutorrent_fullwwwdir => "$www_dir/$rutorrent_wwwdir",

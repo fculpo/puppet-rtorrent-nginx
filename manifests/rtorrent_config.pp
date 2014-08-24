@@ -8,7 +8,9 @@
 #
 # TODO
 #
-class rtorrent::rtorrent_config {
+class rtorrent::rtorrent_config(
+	$rtorrent_command
+) {
   # Create rtorrent user
   user {'rtorrent':
     ensure     => present,
@@ -37,12 +39,13 @@ class rtorrent::rtorrent_config {
   }
   
   # Configure and start rtorrent service
+  
   file { '/etc/init.d/rtorrent':
     ensure  => present,
     owner   => 'rtorrent',
     group   => 'rtorrent',
     mode    => '0555',
-    source  => 'puppet:///modules/rtorrent/rtorrent',
+    content => template('rtorrent/rtorrent'),
     require => User['rtorrent']
   }
   service {'rtorrent':
