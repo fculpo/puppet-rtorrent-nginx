@@ -28,7 +28,7 @@ class rtorrent::rtorrent_config(
   }
   
   # Create .rtorrent.rc
-  file { '/home/rtorrent/.rtorrent.rc.main':
+  file { '/home/rtorrent/.rtorrent.rc.puppet':
     ensure  => present,
     owner   => 'rtorrent',
     group   => 'rtorrent',
