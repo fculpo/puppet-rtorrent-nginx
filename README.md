@@ -1,28 +1,36 @@
-puppet-rtorrent
-===============
+puppet-rtorrent-nginx
+=====================
 
-A puppet module to install libtorrent and rtorrent from source, with the xmlrpc-c extension, as well as the rutorrent frontend.
+A puppet module to install libtorrent and rtorrent from source, with the xmlrpc-c extension, as well as the rutorrent frontend, all on nginx.
 
-## Steps
-1. Create rtorrent user
-2. Install prereqs: git-core, libsigc++, libcurl3, build-essential, automake, libtool, libssl-dev, libncurses5-dev, libcurl4-openssl-dev, libxmlrpc-c++4-dev, apache2, libapache2-mod-scgi, php5, php5-cli
-3. Clone rtorrent
-4. Clone libtorrent
-5. Clone rutorrent
-6. configure / make / install libtorrent
- * run aclocal
- * configure
- * make
- * install
-7. configure / make / install rtorrent
- * aclocal
- * configure --with-xmlrpc-c
- * make
- * install
-8. untar rutorrent to /var/www/rutorrent
-9. change permissions to www-data on !$
-10. a2enmod scgi
-11.   SCGIMount /RPC2 127.0.0.1:5000
-      servername  <% fqdn %>
-      serveralias <% hostname %>
-11. restart apache
+The module has been divided into 4 independant stages that by default are all executed. Tested on Ubuntu 14.04 and 14.10
+
+## Stage 1: Build rtorrent
+
+1. Installs required build dependencies, see [the build manifest for packages that are installed](manifests/rtorrent_build.pp)
+2. [Builds libtorrent and rtorrent](files/rtorrent-build.sh). Roughly does
+ * Clones libtorrent from official github repo
+ * ./configure --with-posix-fallocate 
+ * make and make install
+ * ldconfig
+ * Clones rtorrent from official github repo
+ * ./configure --with-xmlrpc-c=/usr/bin/xmlrpc-c-config
+ * make and make install
+
+## Stage 2: Configure rtorrent
+
+1. Creates dedicated rtorrent user
+2. Creates /var/run/rtorrent for temp work
+3. Creates a default .rtorrent.rc.puppet . Due to the complexity of configuring this file you can symlink to the puppet provided one or create your own
+4. Creates a service in /etc/init.d to start rtorrent
+
+## Stage 3: Build and configure rutorrent
+
+1. Clones rutorrent from official github repo
+2. Configures to use rtorrent scgi socket file
+
+## (OPTIONAL) Stage 4: Setup nginx
+
+If you do not have an existing nginx or apache server setup you can use rtorrent::nginx_php which will setup a nginx webserver with php5. 
+
+This is not enabled by default
