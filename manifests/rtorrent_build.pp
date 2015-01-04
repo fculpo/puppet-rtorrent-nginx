@@ -21,6 +21,7 @@ class rtorrent::rtorrent_build {
 			'g++',
 			'automake',
 			'make',
+			'pkg-config', #stops ./configure from finding openssl if missing
 			# libraries for libtorrent
 			'libxmlrpc-c++8-dev', 
 			'libtool',
