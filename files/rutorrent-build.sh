@@ -16,8 +16,13 @@ fi
 
 #Download rutorrent
 rm -rf $INSTALL_FOLDER
-mkdir $INSTALL_FOLDER
-git clone https://github.com/Novik/ruTorrent.git $INSTALL_FOLDER
+mkdir -p $INSTALL_FOLDER
+cd /tmp
+wget "https://dl.bintray.com/novik65/generic/ruTorrent-3.7.zip"
+unzip ruTorrent-3.7.zip
+mv ruTorrent-master/* $INSTALL_FOLDER
+
+#git clone https://github.com/Novik/ruTorrent.git $INSTALL_FOLDER
 
 #Set the scgi params in rutorrent config to local socket
 cd $INSTALL_FOLDER/conf

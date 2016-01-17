@@ -9,10 +9,10 @@
 #    The full directory path that rutorrent will be installed, see init::rutorrent_dir
 #
 class rtorrent::rutorrent(
-	$rutorrent_fullwwwdir,
+	$rutorrent_fullwwwdir = "$rtorrent::www_dir/$rtorrent::rutorrent_wwwdir"
 ) {
 	# Execute rutorrent build
-	file { '/home/rtorrent/rutorrent-build.sh':
+	file { '/tmp/rutorrent-build.sh':
 		ensure  => present,
 		owner   => 'rtorrent',
 		group   => 'rtorrent',
@@ -24,6 +24,6 @@ class rtorrent::rutorrent(
 		command => "/home/rtorrent/rutorrent-build.sh $rutorrent_fullwwwdir",
 		creates => $rutorrent_fullwwwdir,
 		timeout => 0,
-		require => [File['/home/rtorrent/rutorrent-build.sh'], Package['git']]
+		require => [File['/tmp/rutorrent-build.sh'], Package['git']]
 	}
 }

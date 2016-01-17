@@ -1,5 +1,5 @@
 encryption = allow_incoming,try_outgoing,enable_retry
-dht = enable
+dht = disable
 #peer_exchange = yes # Does not exist in latest rtorrent
 
 check_hash = yes

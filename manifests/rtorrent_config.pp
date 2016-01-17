@@ -9,7 +9,7 @@
 # TODO
 #
 class rtorrent::rtorrent_config(
-	$rtorrent_command
+	$rtorrent_command = $rtorrent::rtorrent_command
 ) {
   # Create rtorrent user
   user {'rtorrent':
@@ -28,18 +28,18 @@ class rtorrent::rtorrent_config(
   }
   
   # Create .rtorrent.rc
-  file { '/home/rtorrent/.rtorrent.rc.puppet':
+  file { '/home/rtorrent/.rtorrent.rc':
     ensure  => present,
     owner   => 'rtorrent',
     group   => 'rtorrent',
     mode    => '0440',
     content => template('rtorrent/rtorrent.rc'),
     require => [ User['rtorrent'], File['/var/run/rtorrent'] ],
-    notify  => Service['rtorrent']
+    #notify  => Service['rtorrent']
   }
   
   # Configure and start rtorrent service
-  
+  /*
   file { '/etc/init.d/rtorrent':
     ensure  => present,
     owner   => 'rtorrent',
@@ -55,4 +55,5 @@ class rtorrent::rtorrent_config(
     enable      => true,
     require     => [Class['rtorrent::rtorrent_build']]
   }
+  */
 }
