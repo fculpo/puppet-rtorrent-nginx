@@ -8,9 +8,10 @@
 #
 # TODO
 #
-class rtorrent::rtorrent_config(
-	$rtorrent_command = $rtorrent::rtorrent_command
-) {
+class rtorrent::rtorrent_config {
+
+  $rtorrent_command = $rtorrent::rtorrent_command
+
   # Create rtorrent user
   user {'rtorrent':
     ensure     => present,
