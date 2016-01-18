@@ -13,38 +13,15 @@
 #
 # There are no parameters for this class
 #
-class rtorrent::rtorrent_build {
+class rtorrent::rtorrent_build inherits rtorrent::params {
 
-  # install rtorrent packages required for build (as of Ubuntu 14.04)
-  $rtorrentpackages = [
-      # Build deps
-      'git',
-      #'g++',
-      'gcc-c++',
-      'automake',
-      'make',
-      #'pkg-config', #stops ./configure from finding openssl if missing
-      'pkgconfig',
-      # libraries for libtorrent
-      #'libxmlrpc-c++8-dev', 
-      'xmlrpc-c-devel',
-      'libtool',
-      #'libcppunit-dev',
-      'cppunit-devel',
-      #'zlib1g-dev',
-      'zlib-devel',
-      #'libssl-dev',
-      'openssl-devel',
-      # libraries for rtorrent
-      #'libncurses5-dev',
-      'ncurses-devel',
-      #'libcurl4-openssl-dev',
-      'libcurl-devel',
-      'unzip'
-      ]
-  package { $rtorrentpackages:
+  # install rtorrent packages required for build
+  $rtorrent_deps = $rtorrent::params::rtorrent_deps
+
+  package { $rtorrent_deps:
     ensure => installed
   }
+
   file { '/tmp/rtorrent-build.sh':
     ensure  => file,
     owner   => 'rtorrent',
@@ -53,10 +30,11 @@ class rtorrent::rtorrent_build {
     content => template('rtorrent/rtorrent-build.sh.erb'),
     require => User['rtorrent']
   }
+
   exec { "build-rtorrent":
     command => "/tmp/rtorrent-build.sh",
     creates => "/usr/local/bin/rtorrent",
     timeout => 0,
-    require => [File['/tmp/rtorrent-build.sh'], Package[$rtorrentpackages]]
+    require => [File['/tmp/rtorrent-build.sh'], Package[$rtorrent_deps]]
   } 
 }
