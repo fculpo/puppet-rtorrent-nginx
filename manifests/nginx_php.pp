@@ -10,42 +10,36 @@
 #
 class rtorrent::nginx_php { 
 
-  $www_dir = $rtorrent::www_dir
-  $vhost   = $rtorrent::vhost
+  $www_dir          = $rtorrent::www_dir
+  $vhost            = $rtorrent::vhost
+  $rutorrent_wwwdir = $rtorrent::rutorrent_wwwdir
 
-  class {'nginx': 
+  class { 'nginx': 
     package_source => 'nginx',
     confd_purge => true
   }
 
-  nginx::resource::vhost { "puppet-rutorrent":
-    ensure                => present,
+  nginx::resource::vhost { $vhost:
     listen_port           => 80,
-    #www_root             => $www_dir, #broken, incorectly puts root in location /{} block
-    vhost_cfg_prepend     => {root =>"/var/www"},
-    proxy                 => undef,
-    location_cfg_append   => undef,
+    www_root              => "$www_dir/$rutorrent_wwwdir", #broken, incorectly puts root in location /{} block
+    #vhost_cfg_prepend     => {root =>"/var/www"},
     index_files           => ['index.php', 'index.html', 'index.htm'],
     use_default_location  => false
   }
 
   # install php5-fpm and configure nginx to use it
-  include php
+  include ::php
 
-  class { ['php::fpm', 'php::cli']: }
-
-  nginx::resource::location { "puppet-rutorrent-php":
-    ensure          => present,
+  nginx::resource::location { "$vhost-php":
     vhost           => $vhost,
     location        => '~ \.php$',
-    proxy           => undef,
     fastcgi         => 'unix:/var/run/php5-fpm.sock',
-    fastcgi_script  => '$document_root$fastcgi_script_name',  #fix fastcgi 404 errors
+    #fastcgi_script  => '$document_root$fastcgi_script_name',  #fix fastcgi 404 errors
     location_cfg_append => {
       fastcgi_connect_timeout => '3m',
       fastcgi_read_timeout    => '3m',
       fastcgi_send_timeout    => '3m'
     }
   }
-  
+
 }
