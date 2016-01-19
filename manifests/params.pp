@@ -11,6 +11,7 @@ class rtorrent::params {
   $rutorrent_wwwdir       = 'rutorrent'
   $rtorrent_command       = '/usr/local/bin/rtorrent -D'
   $install_nginx          = false
+  $vhost                  = 'rtorrent.localdomain'
 
   case $::osfamily {
     'Debian': {

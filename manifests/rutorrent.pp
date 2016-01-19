@@ -23,10 +23,10 @@ class rtorrent::rutorrent {
   }
 
   exec { "build-rutorrent":
-    command => "/home/rtorrent/rutorrent-build.sh $rutorrent_fullwwwdir",
+    command => "/tmp/rutorrent-build.sh $rutorrent_fullwwwdir",
     creates => $rutorrent_fullwwwdir,
     timeout => 0,
     require => [File['/tmp/rutorrent-build.sh'], Package['git']]
   }
-  
+
 }
